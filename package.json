@@ -1,0 +1,30 @@
+{
+  "name": "onboard-backend-bot",
+  "version": "1.0.0",
+  "description": "Back in Black ==",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc",
+    "start": "npm run compile && node ./dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcusfreirepaulino/onboard-backend-bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcusfreirepaulino/onboard-backend-bot/issues"
+  },
+  "homepage": "https://github.com/marcusfreirepaulino/onboard-backend-bot#readme",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "typescript": "^5.1.3"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.7.4",
+    "graphql": "^16.6.0"
+  }
+}
