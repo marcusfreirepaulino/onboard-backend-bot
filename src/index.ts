@@ -1,5 +1,5 @@
-import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
 
 const typeDefs = `
   type Query {
@@ -9,7 +9,7 @@ const typeDefs = `
 
 const resolvers = {
   Query: {
-    hello: () => "Hello World!",
+    hello: () => 'Hello World!',
   },
 };
 
