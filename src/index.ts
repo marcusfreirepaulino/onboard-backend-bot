@@ -1,5 +1,6 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
+import { AppDataSource } from './data-source.js';
 
 const typeDefs = `
   type Query {
@@ -18,3 +19,5 @@ const server = new ApolloServer({ typeDefs, resolvers });
 const { url } = await startStandaloneServer(server, {
   listen: { port: 4000 },
 });
+
+AppDataSource.initialize().then((data) => console.log('initialized', data));
