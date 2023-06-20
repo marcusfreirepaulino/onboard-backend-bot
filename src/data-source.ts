@@ -4,7 +4,11 @@ import { User } from './data/db/entity/user.entity.js';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  url: 'postgres://teste:password@localhost:5432/local',
+  host: process.env.HOST,
+  port: +process.env.DB_PORT,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
   entities: [User],
