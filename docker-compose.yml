@@ -6,8 +6,8 @@ services:
     volumes:
       - ./db/dumps:/app-db-dumps
     environment:
-      - POSTGRES_USER=mago
-      - POSTGRES_PASSWORD=12345
+      - POSTGRES_USER=teste
+      - POSTGRES_PASSWORD=password
       - POSTGRES_DB=local
 
   testdb:
