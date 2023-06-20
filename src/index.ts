@@ -9,6 +9,13 @@ const typeDefs = `
   type Query {
     hello: String
   }
+  type User {
+    id: Number!
+    firstName: String!
+    lastName: String!
+    email: String!
+
+  }
 `;
 
 const resolvers = {
