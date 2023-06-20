@@ -17,12 +17,20 @@ const resolvers = {
   },
 };
 
-AppDataSource.initialize()
-  .then(() => console.log('initialized'))
-  .catch((error) => console.log(error));
+async function IntializeApp() {
+  try {
+    await AppDataSource.initialize();
+    const server = new ApolloServer({ typeDefs, resolvers });
 
-const server = new ApolloServer({ typeDefs, resolvers });
+    const { url } = await startStandaloneServer(server, {
+      listen: { port: +process.env.SERVER_PORT },
+    });
 
-const { url } = await startStandaloneServer(server, {
-  listen: { port: +process.env.SERVER_PORT },
-});
+    console.log(`Server Running at ${url}`)
+
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+IntializeApp();
