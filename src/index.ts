@@ -6,21 +6,38 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import { AppDataSource } from './data-source.js';
 
 const typeDefs = `
+  type User {
+    id: Int!
+    name: String!
+    email: String!
+    birthDate: String!
+    password: String!
+  }
+
+  input UserInput {
+    name: String!
+    email: String!
+    birthDate: String!
+    password: String!
+  }
+
   type Query {
     hello: String
   }
-  type User {
-    id: Number!
-    firstName: String!
-    lastName: String!
-    email: String!
-
+   
+  type Mutation {
+    createUser(data: UserInput!): User!
   }
 `;
 
 const resolvers = {
   Query: {
     hello: () => 'Hello World!',
+  },
+  Mutation: {
+    createUser: (_, { data }) => {
+      return { id: 1, ...data };
+    },
   },
 };
 
