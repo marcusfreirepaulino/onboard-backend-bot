@@ -4,6 +4,7 @@ import 'dotenv/config.js';
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { AppDataSource } from './data-source.js';
+import { User } from './data/db';
 
 const typeDefs = `
   type User {
@@ -11,7 +12,6 @@ const typeDefs = `
     name: String!
     email: String!
     birthDate: String!
-    password: String!
   }
 
   input UserInput {
@@ -35,7 +35,16 @@ const resolvers = {
     hello: () => 'Hello World!',
   },
   Mutation: {
-    createUser: (_, { data }) => {
+    createUser: async (_, { data }) => {
+      const userRepository = AppDataSource.getRepository(User);
+
+      const user = new User();
+      user.name = data.name;
+      user.email = data.email;
+      user.id = 1;
+      user.birthDate = data.birthDate;
+
+      await userRepository.save(user);
       return { id: 1, ...data };
     },
   },
@@ -50,8 +59,7 @@ async function IntializeApp() {
       listen: { port: +process.env.SERVER_PORT },
     });
 
-    console.log(`Server Running at ${url}`)
-
+    console.log(`Server Running at ${url}`);
   } catch (err) {
     console.log(err);
   }
