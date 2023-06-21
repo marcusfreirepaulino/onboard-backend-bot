@@ -37,9 +37,9 @@ const resolvers = {
   },
   Mutation: {
     createUser: async (_, { data }) => {
-      createUserRow(data);
+      const user = await createUserRow(data);
 
-      return { id: 1, ...data };
+      return { ...user };
     },
   },
 };
