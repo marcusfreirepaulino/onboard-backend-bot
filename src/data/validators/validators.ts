@@ -8,17 +8,21 @@ export function passwordValidator(password: string) {
   if (password.length < minLength) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     throw new Error(`A valid password should have at least ${minLength} characters.'`);
   }
 
   if (password.length > maxLength) {
     throw new Error(`Your password surpasses the limit of ${maxLength} characters.`);
 =======
+=======
+>>>>>>> 6f26988 (altered use case validation)
     throw new Error('A valid password should have at least 6 characters.');
   }
 
   if (password.length > maxLength) {
     throw new Error('Your password surpasses the limit of 30 characters.');
+<<<<<<< HEAD
 >>>>>>> 6f26988 (altered use case validation)
 =======
     throw new Error(`A valid password should have at least ${minLength} characters.'`);
@@ -27,6 +31,8 @@ export function passwordValidator(password: string) {
   if (password.length > maxLength) {
     throw new Error(`Your password surpasses the limit of ${maxLength} characters.`);
 >>>>>>> 597f829 (adusted cr changes)
+=======
+>>>>>>> 6f26988 (altered use case validation)
   }
 
   if (!password.match(PASSWORD_REGEX)) {
@@ -36,11 +42,14 @@ export function passwordValidator(password: string) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export function emailValidator(email: string) {
   if (!email.match(EMAIL_REGEX)) {
     throw new Error('Insert a valid email.');
   }
 =======
+=======
+>>>>>>> 6f26988 (altered use case validation)
 export function emailValidator(email: string, alreadyRegistered: boolean) {
   if (!email.match(EMAIL_REGEX)) {
     throw new Error('Insert a valid email.');
@@ -49,6 +58,7 @@ export function emailValidator(email: string, alreadyRegistered: boolean) {
   if (alreadyRegistered) {
     throw new Error('This email is already registered.');
   }
+<<<<<<< HEAD
 >>>>>>> 6f26988 (altered use case validation)
 =======
 export function emailValidator(email: string) {
@@ -56,4 +66,6 @@ export function emailValidator(email: string) {
     throw new Error('Insert a valid email.');
   }
 >>>>>>> 597f829 (adusted cr changes)
+=======
+>>>>>>> 6f26988 (altered use case validation)
 }
