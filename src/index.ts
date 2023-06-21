@@ -57,4 +57,25 @@ async function IntializeApp() {
   }
 }
 
+function passwordValidator(password: string) {
+  const minLength = 6;
+  const maxLength = 30;
+
+  if (password.length < minLength) {
+    throw new Error('A valid password should have at least 6 characters.');
+  }
+
+  if (password.length > maxLength) {
+    throw new Error('Your password surpasses the limit of 30 characters.');
+  }
+
+  if (!password.match(/^(?=.*\d)(?=.*[a-zA-Z]).+$/)) {
+    throw new Error('A valid password should have a least 1 letter and 1 digit.');
+  }
+}
+
+function emailValidator(email: string) {
+  
+}
+
 IntializeApp();

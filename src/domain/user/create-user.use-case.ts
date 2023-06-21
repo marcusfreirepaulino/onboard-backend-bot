@@ -24,6 +24,5 @@ export async function createUserUseCase(input: UserModel) {
   user.birthDate = input.birthDate;
   user.password = hashedPassword;
 
-  const data = await userRepository.save(user);
-  return data;
+  return userRepository.save(user);
 }
