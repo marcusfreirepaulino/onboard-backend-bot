@@ -1,6 +1,6 @@
 import { AppDataSource } from '../../data-source';
 import { User } from '../../data/db';
-import { emailValidator, passwordValidator } from '../../data/validators/validators';
+import { emailValidator, passwordValidator } from '../../data/validators';
 import { UserModel } from '../../model';
 
 export async function createUserUseCase(data: UserModel) {
