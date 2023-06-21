@@ -12,5 +12,4 @@ export async function createUserUseCase(data: UserModel) {
   user.password = data.password;
 
   return userRepository.save(user);
-  
 }
