@@ -3,8 +3,9 @@ import 'dotenv/config.js';
 
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { AppDataSource } from './data-source.js';
-import { User } from './data/db';
+
+import { AppDataSource } from './data-source';
+import { createUserRow } from './domain/';
 
 const typeDefs = `
   type User {
@@ -36,15 +37,8 @@ const resolvers = {
   },
   Mutation: {
     createUser: async (_, { data }) => {
-      const userRepository = AppDataSource.getRepository(User);
+      createUserRow(data);
 
-      const user = new User();
-      user.name = data.name;
-      user.email = data.email;
-      user.id = 1;
-      user.birthDate = data.birthDate;
-
-      await userRepository.save(user);
       return { id: 1, ...data };
     },
   },
