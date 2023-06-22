@@ -6,11 +6,11 @@ export function passwordValidator(password: string) {
   const maxLength = 30;
 
   if (password.length < minLength) {
-    throw new Error('A valid password should have at least 6 characters.');
+    throw new Error(`A valid password should have at least ${minLength} characters.'`);
   }
 
   if (password.length > maxLength) {
-    throw new Error('Your password surpasses the limit of 30 characters.');
+    throw new Error(`Your password surpasses the limit of ${maxLength} characters.`);
   }
 
   if (!password.match(PASSWORD_REGEX)) {
@@ -18,12 +18,8 @@ export function passwordValidator(password: string) {
   }
 }
 
-export function emailValidator(email: string, alreadyRegistered: boolean) {
+export function emailValidator(email: string) {
   if (!email.match(EMAIL_REGEX)) {
     throw new Error('Insert a valid email.');
-  }
-
-  if (alreadyRegistered) {
-    throw new Error('This email is already registered.');
   }
 }
