@@ -2,7 +2,7 @@ import { AppDataSource } from '../../data-source';
 import { User } from '../../data/db';
 import { UserModel } from '../../model';
 
-export async function createUserRow(data: UserModel) {
+export async function createUserUseCase(data: UserModel) {
   const userRepository = AppDataSource.getRepository(User);
   const user = new User();
 

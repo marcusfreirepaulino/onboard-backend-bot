@@ -5,7 +5,7 @@ import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 
 import { AppDataSource } from './data-source';
-import { createUserRow } from './domain/';
+import { createUserUseCase } from './domain/';
 
 const typeDefs = `
   type User {
@@ -37,9 +37,7 @@ const resolvers = {
   },
   Mutation: {
     createUser: async (_, { data }) => {
-      const user = await createUserRow(data);
-
-      return { ...user };
+      return createUserUseCase(data);
     },
   },
 };
