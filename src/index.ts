@@ -36,7 +36,7 @@ const resolvers = {
     hello: () => 'Hello World!',
   },
   Mutation: {
-    createUser: async (_, { data }) => {
+    createUser: (_, { data }) => {
       return createUserUseCase(data);
     },
   },
