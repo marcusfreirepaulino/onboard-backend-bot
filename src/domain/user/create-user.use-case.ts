@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 
-import { AppDataSource } from '../../data-source';
-import { User } from '../../data/db';
-import { emailValidator, passwordValidator } from '../../data/validators';
-import { UserModel } from '../../model';
+import { AppDataSource } from '../../data-source.js';
+import { User } from '../../data/db/entity/user.entity.js';
+import { emailValidator, passwordValidator } from '../../data/validators/validators.js';
+import { UserModel } from '../../model/user.model.js';
 
 export async function createUserUseCase(input: UserModel) {
   const userRepository = AppDataSource.getRepository(User);

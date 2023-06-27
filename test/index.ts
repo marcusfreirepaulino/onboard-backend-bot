@@ -1,10 +1,9 @@
-import assert from 'assert';
-import { describe, it } from 'mocha';
+import { describe, before } from 'mocha';
+import { initializeApp } from '../src/initialize-app.js';
+import { test } from './teste.test.js';
+import { helloWorldTest } from './hello-world.test.js';
 
-describe('Array', () => {
-  describe('#IndexOf()', () => {
-    it('should return -1 when the value is not present', () => {
-      assert.equal([1, 2, 3].indexOf(4), -1);
-    });
-  });
+describe('#TESTE', () => {
+  before(initializeApp);
+  helloWorldTest;
 });
