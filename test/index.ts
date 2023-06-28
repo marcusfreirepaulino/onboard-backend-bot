@@ -1,9 +1,11 @@
-import { describe, before } from 'mocha';
-import { initializeApp } from '../src/initialize-app.js';
-import { test } from './teste.test.js';
-import { helloWorldTest } from './hello-world.test.js';
+import dotenv from 'dotenv';
 
-describe('#TESTE', () => {
-  before(initializeApp);
-  helloWorldTest;
+dotenv.config({ path: 'test.env' });
+
+before(async () => {
+  const { initializeApp } = await import('../src/initialize-app.js');
+  await initializeApp();
 });
+
+await import('./hello-world.test.js');
+await import('./teste.test.js');
