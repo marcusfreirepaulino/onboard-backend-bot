@@ -1,25 +1,16 @@
 import { AppDataSource } from '../../data-source';
 import { User } from '../../data/db';
-import { emailValidator, passwordValidator } from '../../data/validators';
 import { UserModel } from '../../model';
 
-export async function createUserUseCase(input: UserModel) {
+export async function createUserUseCase(data: UserModel) {
   const userRepository = AppDataSource.getRepository(User);
   const user = new User();
 
-  emailValidator(input.email);
-  passwordValidator(input.password);
-  const findEmail = await userRepository.findOneBy({ email: input.email });
+  user.name = data.name;
+  user.email = data.email;
+  user.birthDate = data.birthDate;
+  user.password = data.password;
 
-  if (!!findEmail) {
-    throw new Error('This email is already registered.');
-  }
-
-  user.name = input.name;
-  user.email = input.email;
-  user.birthDate = input.birthDate;
-  user.password = input.password;
-
-  const data = await userRepository.save(user);
-  return data;
+  return userRepository.save(user);
+  
 }
