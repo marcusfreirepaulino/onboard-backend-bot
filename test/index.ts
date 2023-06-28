@@ -8,4 +8,4 @@ before(async () => {
 });
 
 await import('./hello-world.test.js');
-await import('./teste.test.js');
+await import('./create-user.test.js');

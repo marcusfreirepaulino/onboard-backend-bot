@@ -3,7 +3,7 @@ import { describe, it } from 'mocha';
 import { expect } from 'chai';
 
 describe('Hello World!', () => {
-  const endpoint = `http://${process.env.HOST}:${process.env.SERVER_PORT}/graphql:`;
+  const endpoint = `http://${process.env.HOST}:${process.env.SERVER_PORT}/graphql`;
 
   const headers = {
     'content-type': 'application/json',
