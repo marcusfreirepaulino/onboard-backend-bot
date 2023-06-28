@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 import { AppDataSource } from '../../data-source';
 import { User } from '../../data/db';
 import { emailValidator, passwordValidator } from '../../data/validators';
@@ -15,10 +17,12 @@ export async function createUserUseCase(input: UserModel) {
     throw new Error('This email is already registered.');
   }
 
+  const hashedPassword = await bcrypt.hash(input.password, +process.env.HASH_ROUNDS);
+  
   user.name = input.name;
   user.email = input.email;
   user.birthDate = input.birthDate;
-  user.password = input.password;
+  user.password = hashedPassword;
 
   const data = await userRepository.save(user);
   return data;
