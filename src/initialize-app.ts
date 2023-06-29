@@ -3,6 +3,7 @@ import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { AppDataSource } from './data-source.js';
 import { createUserUseCase } from './domain/user/create-user.use-case.js';
+import { formatError } from './format-error.js';
 
 const typeDefs = `
   type User {
@@ -44,7 +45,7 @@ const resolvers = {
 export async function initializeApp() {
   try {
     await AppDataSource.initialize();
-    const server = new ApolloServer({ typeDefs, resolvers });
+    const server = new ApolloServer({ typeDefs, resolvers, formatError });
 
     const { url } = await startStandaloneServer(server, {
       listen: { port: +process.env.SERVER_PORT },

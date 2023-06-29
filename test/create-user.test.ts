@@ -4,6 +4,7 @@ import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import { AppDataSource } from '../src/data-source.js';
 import { User } from '../src/data/db/index.js';
+import { CustomError } from '../src/format-error.js';
 
 describe('Create User', () => {
   const endpoint = `http://${process.env.HOST}:${process.env.SERVER_PORT}/graphql`;
@@ -56,5 +57,27 @@ describe('Create User', () => {
     const isSamePassword = await bcrypt.compare(variables.data.password, encryptedPassword);
 
     expect(isSamePassword).to.be.true;
+  });
+
+  it('should return custom error messages', async () => {
+    const invalidPasswordInput = {
+      data: {
+        ...variables.data,
+        password: '123',
+      },
+    };
+
+    const { data: response } = await axios({
+      url: endpoint,
+      method: 'post',
+      headers: headers,
+      data: {
+        variables: invalidPasswordInput,
+        query: mutation,
+      },
+    });
+
+    const customError = response.errors[0] as CustomError;
+    expect(!!customError.message && !!customError.code).to.be.true;
   });
 });
