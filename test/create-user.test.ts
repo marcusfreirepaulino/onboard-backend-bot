@@ -107,4 +107,26 @@ describe('Create User', () => {
     const customError = response.errors[0] as CustomError;
     expect(!!customError.message && !!customError.code).to.be.true;
   });
+
+  it('should return custom error messages', async () => {
+    const invalidPasswordInput = {
+      data: {
+        ...variables.data,
+        password: '123',
+      },
+    };
+
+    const { data: response } = await axios({
+      url: endpoint,
+      method: 'post',
+      headers: headers,
+      data: {
+        variables: invalidPasswordInput,
+        query: mutation,
+      },
+    });
+
+    const customError = response.errors[0] as CustomError;
+    expect(!!customError.message && !!customError.code).to.be.true;
+  });
 });
