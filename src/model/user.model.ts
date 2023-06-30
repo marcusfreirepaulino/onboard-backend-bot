@@ -5,3 +5,8 @@ export interface UserModel {
   birthDate: string;
   password: string;
 }
+
+export interface LoginInput {
+  email: string;
+  password: string;
+}
