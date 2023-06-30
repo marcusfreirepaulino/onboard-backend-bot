@@ -24,7 +24,7 @@ export const typeDefs = `
   }
    
   type Query {
-    hello: String
+    user(id: Int!): User!
   }
   
   type Mutation {
