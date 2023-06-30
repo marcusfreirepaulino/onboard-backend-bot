@@ -56,7 +56,5 @@ describe('Create User', () => {
     const isSamePassword = await bcrypt.compare(variables.data.password, encryptedPassword);
 
     expect(isSamePassword).to.be.true;
-
-    await AppDataSource.dropDatabase();
   });
 });
