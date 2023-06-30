@@ -1,5 +1,6 @@
 import axios from 'axios';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import { AppDataSource } from '../src/data-source.js';
@@ -9,10 +10,6 @@ import { CustomError } from '../src/format-error.js';
 describe('Create User', () => {
   const endpoint = `http://${process.env.HOST}:${process.env.SERVER_PORT}/graphql`;
   const userRepository = AppDataSource.getRepository(User);
-
-  const headers = {
-    'content-type': 'application/json',
-  };
 
   const mutation = `
     mutation CreateUser($data: UserInput!){
@@ -32,6 +29,13 @@ describe('Create User', () => {
       birthDate: '22/07/2003',
       password: '1234576aa',
     },
+  };
+
+  const token = jwt.sign(variables.data.email, process.env.JWT_SECRET);
+
+  const headers = {
+    'content-type': 'application/json',
+    Authorization: token,
   };
 
   it('should create an user in the database', async () => {

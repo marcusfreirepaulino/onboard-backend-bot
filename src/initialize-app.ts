@@ -13,6 +13,7 @@ export async function initializeApp() {
 
     const { url } = await startStandaloneServer(server, {
       listen: { port: +process.env.SERVER_PORT },
+      context: async ({ req }) => ({ token: req.headers?.authorization }),
     });
 
     console.log(`Server Running at ${url}`);
