@@ -1,13 +1,14 @@
 import axios from 'axios';
-import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import { AppDataSource } from '../src/data-source.js';
 import { User } from '../src/data/db/entity/user.entity.js';
+import { createUserUseCase } from '../src/domain/index.js';
+import { CustomError } from '../src/format-error.js';
 
 describe('Login', () => {
   const endpoint = `http://${process.env.HOST}:${process.env.SERVER_PORT}/graphql`;
-  const userRepository = AppDataSource.getRepository(User);
 
   const headers = {
     'content-type': 'application/json',
@@ -16,33 +17,73 @@ describe('Login', () => {
   const mutation = `
     mutation Login($data: LoginInput!) {
       login(data: $data) {
-        id
-        name
-        email
-        birthDate
+        login{
+          id
+          name
+          email
+          birthDate
+        }
+        token
       }
-      token
     }
   `;
 
   const variables = {
     data: {
+      name: 'alfredo',
       email: 'zeramalho123@gmail.com',
       password: '1234576aa',
+      birthDate: '22/07/2003',
     },
   };
 
-  it('should return the same email passed', async () => {
+  it('should return the correct user information', async () => {
+    await createUserUseCase(variables.data);
+    const userRepository = AppDataSource.getRepository(User);
+
     const { data: response } = await axios({
       url: endpoint,
       method: 'post',
       headers: headers,
       data: {
-        variables,
+        variables: {
+          data: {
+            email: variables.data.email,
+            password: variables.data.password,
+          },
+        },
         query: mutation,
       },
     });
 
-    expect(response.data.login).to.not.be.empty;
+    const userInDatabase = await userRepository.findOneBy({ id: response.data.login.login.id });
+
+    expect(response.data.login.login.email).to.be.eq(userInDatabase.email);
+    expect(response.data.login.login.name).to.be.eq(userInDatabase.name);
+    expect(response.data.login.login.birthDate).to.be.eq(userInDatabase.birthDate);
+
+    const tokenEmail = jwt.verify(response.data.login.token, process.env.JWT_SECRET);
+    expect(response.data.login.login.email).to.be.eq(tokenEmail);
+  });
+
+  it('should return custom error messages', async () => {
+    const { data: response } = await axios({
+      url: endpoint,
+      method: 'post',
+      headers: headers,
+      data: {
+        variables: {
+          data: {
+            email: 'non-existant@email.com',
+            password: 'generic-password123',
+          },
+        },
+        query: mutation,
+      },
+    });
+
+    const customError = response.errors[0] as CustomError;
+    expect(customError.code).to.be.eq(400);
+    expect(customError.message).to.be.eq('There is no user registered using the email sent.');
   });
 });

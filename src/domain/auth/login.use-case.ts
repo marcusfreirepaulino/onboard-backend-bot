@@ -34,7 +34,7 @@ export async function loginUseCase(input: LoginInput): Promise<LoginUseCaseRespo
     throw new CustomError('Wrong password! Please, try again.', 400);
   }
   
-  const token = jwt.sign(databaseUser.name, process.env.JWT_SECRET);
+  const token = jwt.sign(databaseUser.email, process.env.JWT_SECRET);
 
   return {
     login: {
