@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 import { AppDataSource } from '../../data-source.js';
 import { User } from '../../data/db/entity/user.entity.js';
