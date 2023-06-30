@@ -33,6 +33,8 @@ export async function loginUseCase(input: LoginInput): Promise<LoginUseCaseRespo
   if (!isSamePassword) {
     throw new CustomError('Wrong password! Please, try again.', 400);
   }
+  
+  const token = jwt.sign(databaseUser.name, process.env.JWT_SECRET);
 
   return {
     login: {
@@ -41,6 +43,6 @@ export async function loginUseCase(input: LoginInput): Promise<LoginUseCaseRespo
       email: databaseUser.email,
       birthDate: databaseUser.birthDate,
     },
-    token: '',
+    token,
   };
 }
