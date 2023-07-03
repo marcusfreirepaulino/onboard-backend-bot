@@ -47,9 +47,11 @@ describe('Get User', () => {
       },
     });
 
-    expect(response.data.user.id).to.be.eq(user.id);
-    expect(response.data.user.name).to.be.eq(user.name);
-    expect(response.data.user.email).to.be.eq(user.email);
-    expect(response.data.user.birthDate).to.be.eq(user.birthDate);
+    expect(response.data.user).to.be.deep.eq({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      birthDate: user.birthDate,
+    });
   });
 });
