@@ -6,15 +6,7 @@ export const resolvers = {
     hello: () => 'Hello World!',
   },
   Mutation: {
-    createUser: async (_, { data }, context) => {
-      const userData = await createUserUseCase(data, context?.token);
-
-      return { ...userData };
-    },
-    login: async (_, { data }) => {
-      const reponse = await loginUseCase(data);
-
-      return reponse;
-    },
+    createUser: async (_, { data }, context) => createUserUseCase(data, context?.token),
+    login: async (_, { data }) => loginUseCase(data),
   },
 };
