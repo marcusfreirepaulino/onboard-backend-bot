@@ -50,7 +50,6 @@ describe('Get Users', () => {
         variables,
       },
     });
-
     expect(response.data.users.before).to.be.true; 
     expect(response.data.users.after).to.be.true;
     expect(response.data.users.users.length).to.be.eq(variables.data.limit); 

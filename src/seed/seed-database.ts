@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
 import { faker } from '@faker-js/faker';
 import { UserInput } from '../model/user.model.js';
 import { User } from '../data/db/index.js';
