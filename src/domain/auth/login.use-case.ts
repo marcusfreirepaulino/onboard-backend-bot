@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 
 import { AppDataSource } from '../../data-source.js';
 import { User } from '../../data/db/entity/user.entity.js';
-import { emailValidator, passwordValidator } from '../../data/validators/validators.js';
 import { CustomError } from '../../format-error.js';
 import { LoginInput } from '../../model/user.model.js';
 
@@ -19,8 +18,6 @@ interface LoginUseCaseResponse {
 
 export async function loginUseCase(input: LoginInput): Promise<LoginUseCaseResponse> {
   const userRepository = AppDataSource.getRepository(User);
-  emailValidator(input.email);
-  passwordValidator(input.password);
 
   const databaseUser = await userRepository.findOneBy({ email: input.email });
 
