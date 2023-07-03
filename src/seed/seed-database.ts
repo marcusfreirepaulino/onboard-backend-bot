@@ -12,7 +12,7 @@ export async function seedDatabase() {
   const { createUserUseCase } = await import('../domain/user/create-user.use-case.js');
   await AppDataSource.initialize();
 
-  for (let i = 0; i <= NUMBER_OF_ITERATIONS; i++) {
+  for (let i = 0; i < NUMBER_OF_ITERATIONS; i++) {
     const user = createRandomUser();
     const token = jwt.sign(user.email, process.env.JWT_SECRET);
 
@@ -20,7 +20,7 @@ export async function seedDatabase() {
   }
 
   const end = performance.now();
-  console.log(`Database seeded with 50 users! Runtime: ${end - start}ms`);
+  console.log(`Database seeded with ${NUMBER_OF_ITERATIONS} users! Runtime: ${end - start}ms`);
 }
 
 function createRandomUser(): UserInput {
