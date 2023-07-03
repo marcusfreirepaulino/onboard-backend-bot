@@ -84,7 +84,7 @@ describe('Login', () => {
     });
 
     const customError = response.errors[0] as CustomError;
-    expect(customError.code).to.be.eq(400);
-    expect(customError.message).to.be.eq('There is no user registered using the email sent.');
+    expect(customError.code).to.be.eq(401);
+    expect(customError.message).to.be.eq('Invalid credentials');
   });
 });

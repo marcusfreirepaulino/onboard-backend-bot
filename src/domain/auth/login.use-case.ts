@@ -22,13 +22,13 @@ export async function loginUseCase(input: LoginInput): Promise<LoginUseCaseRespo
   const databaseUser = await userRepository.findOneBy({ email: input.email });
 
   if (!databaseUser) {
-    throw new CustomError('There is no user registered using the email sent.', 400);
+    throw new CustomError('Invalid credentials', 401);
   }
 
   const isSamePassword = await bcrypt.compare(input.password, databaseUser.password);
 
   if (!isSamePassword) {
-    throw new CustomError('Wrong password! Please, try again.', 400);
+    throw new CustomError('Invalid credentials', 401);
   }
   
   const token = jwt.sign(databaseUser.email, process.env.JWT_SECRET);
