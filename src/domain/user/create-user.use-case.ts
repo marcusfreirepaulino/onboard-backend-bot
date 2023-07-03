@@ -4,6 +4,7 @@ import { AppDataSource } from '../../data-source.js';
 import { User } from '../../data/db/entity/user.entity.js';
 import { emailValidator, passwordValidator } from '../../data/validators/validators.js';
 import { UserModel } from '../../model/user.model.js';
+import { CustomError } from '../../format-error.js';
 
 export async function createUserUseCase(input: UserModel) {
   const userRepository = AppDataSource.getRepository(User);
@@ -14,7 +15,7 @@ export async function createUserUseCase(input: UserModel) {
   const findEmail = await userRepository.findOneBy({ email: input.email });
 
   if (!!findEmail) {
-    throw new Error('This email is already registered.');
+    throw new CustomError('This email is already registered.', 400);
   }
 
   const hashedPassword = await bcrypt.hash(input.password, +process.env.HASH_ROUNDS);
