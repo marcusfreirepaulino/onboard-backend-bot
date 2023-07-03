@@ -40,7 +40,7 @@ export const typeDefs = `
   }
   
   type Query {
-    users(data: UsersInput!): Users!
+    users(data: UsersInput): Users!
   }
   
   type Mutation {

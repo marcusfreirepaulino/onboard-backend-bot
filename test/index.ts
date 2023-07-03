@@ -13,4 +13,5 @@ afterEach(async () => {
 
 await import('./get-user.test.js');
 await import('./create-user.test.js');
-await import ('./login.test.js');
+await import('./login.test.js');
+await import('./get-users.test.js');
