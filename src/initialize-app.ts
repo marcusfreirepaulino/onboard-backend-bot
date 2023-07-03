@@ -1,46 +1,10 @@
-import 'dotenv/config.js'
+import 'dotenv/config.js';
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { AppDataSource } from './data-source.js';
-import { createUserUseCase } from './domain/user/create-user.use-case.js';
 import { formatError } from './format-error.js';
-
-const typeDefs = `
-  type User {
-    id: Int!
-    name: String!
-    email: String!
-    birthDate: String!
-  }
-
-  input UserInput {
-    name: String!
-    email: String!
-    birthDate: String!
-    password: String!
-  }
-  
-  type Query {
-    hello: String
-  }
-  
-  type Mutation {
-    createUser(data: UserInput!): User!
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => 'Hello World!',
-  },
-  Mutation: {
-    createUser: async (_, { data }) => {
-      const userData = await createUserUseCase(data);
-
-      return { ...userData };
-    },
-  },
-};
+import { resolvers } from './resolvers.js';
+import { typeDefs } from './types-def.js';
 
 export async function initializeApp() {
   try {
@@ -49,6 +13,7 @@ export async function initializeApp() {
 
     const { url } = await startStandaloneServer(server, {
       listen: { port: +process.env.SERVER_PORT },
+      context: async ({ req }) => ({ token: req.headers?.authorization }),
     });
 
     console.log(`Server Running at ${url}`);
