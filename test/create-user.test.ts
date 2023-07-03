@@ -79,5 +79,6 @@ describe('Create User', () => {
 
     const customError = response.errors[0] as CustomError;
     expect(!!customError.message && !!customError.code).to.be.true;
+    expect(customError.code).to.be.eq(400);
   });
 });
