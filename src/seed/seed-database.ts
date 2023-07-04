@@ -1,26 +1,42 @@
 import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
 import { faker } from '@faker-js/faker';
 import { UserInput } from '../model/user.model.js';
+import { User } from '../data/db/index.js';
 
 dotenv.config({ path: 'test.env' });
 
-export async function seedDatabase() {
+interface SeedDatabaseParams {
+  users?: {
+    name?: string;
+    email?: string;
+    password?: string;
+    birthDate?: string;
+  }[];
+}
+
+export async function seedDatabase(params?: SeedDatabaseParams) {
   const start = performance.now();
 
   const { AppDataSource } = await import('../data-source.js');
-  const { createUserUseCase } = await import('../domain/user/create-user.use-case.js');
   await AppDataSource.initialize();
+  const userRepository = AppDataSource.getRepository(User);
 
-  for (let i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-    const user = createRandomUser();
-    const token = jwt.sign(user.email, process.env.JWT_SECRET);
+  const numberOfUsers = !!params?.users?.length ? params.users.length : DEFAULT_NUMBER_OF_USERS;
 
-    await createUserUseCase(user, token);
+  for (let i = 0; i < numberOfUsers; i++) {
+    const randomUser = createRandomUser();
+    const user = {
+      name: params?.users?.[i].name ?? randomUser.name,
+      email: params?.users?.[i].email ?? randomUser.email,
+      password: params?.users?.[i].password ?? randomUser.password,
+      birthDate: params?.users?.[i].birthDate ?? randomUser.birthDate,
+    };
+
+    userRepository.save(user);
   }
 
   const end = performance.now();
-  console.log(`Database seeded with ${NUMBER_OF_ITERATIONS} users! Runtime: ${end - start}ms`);
+  console.log(`Database seeded with ${numberOfUsers} users! Runtime: ${end - start}ms`);
 }
 
 function createRandomUser(): UserInput {
@@ -33,6 +49,6 @@ function createRandomUser(): UserInput {
   };
 }
 
-const NUMBER_OF_ITERATIONS = 50;
+const DEFAULT_NUMBER_OF_USERS = 50;
 
 await seedDatabase();
