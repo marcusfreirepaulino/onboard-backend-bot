@@ -4,6 +4,7 @@ import { UserInput } from '../model/user.model.js';
 import { User } from '../data/db/index.js';
 
 dotenv.config({ path: 'test.env' });
+const { AppDataSource } = await import('../data-source.js');
 
 interface SeedDatabaseParams {
   users?: {
@@ -17,20 +18,13 @@ interface SeedDatabaseParams {
 export async function seedDatabase(params?: SeedDatabaseParams) {
   const start = performance.now();
 
-  const { AppDataSource } = await import('../data-source.js');
-  await AppDataSource.initialize();
   const userRepository = AppDataSource.getRepository(User);
 
-  const numberOfUsers = !!params?.users?.length ? params.users.length : DEFAULT_NUMBER_OF_USERS;
+  const numberOfUsers = params?.users?.length ?? DEFAULT_NUMBER_OF_USERS;
 
   for (let i = 0; i < numberOfUsers; i++) {
     const randomUser = createRandomUser();
-    const user = {
-      name: params?.users?.[i].name ?? randomUser.name,
-      email: params?.users?.[i].email ?? randomUser.email,
-      password: params?.users?.[i].password ?? randomUser.password,
-      birthDate: params?.users?.[i].birthDate ?? randomUser.birthDate,
-    };
+    const user = Object.assign(randomUser, params?.users?.[i]);
 
     userRepository.save(user);
   }
@@ -51,4 +45,8 @@ function createRandomUser(): UserInput {
 
 const DEFAULT_NUMBER_OF_USERS = 50;
 
-await seedDatabase();
+if (require.main === module) {
+  await AppDataSource.initialize();
+
+  await seedDatabase();
+}
