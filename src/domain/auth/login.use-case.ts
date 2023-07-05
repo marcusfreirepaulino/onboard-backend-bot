@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import { AppDataSource } from '../../data-source.js';
-import { User } from '../../data/db/entity/user.entity.js';
-import { CustomError } from '../../format-error.js';
-import { LoginInput } from '../../model/user.model.js';
+import { AppDataSource } from '../../data-source';
+import { User } from '../../data/db/entity/user.entity';
+import { CustomError } from '../../format-error';
+import { LoginInput } from '../../model/user.model';
 
 interface LoginUseCaseResponse {
   login: {

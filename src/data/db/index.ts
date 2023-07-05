@@ -1,1 +1,1 @@
-export * from './entity/index.js';
+export * from './entity/index';

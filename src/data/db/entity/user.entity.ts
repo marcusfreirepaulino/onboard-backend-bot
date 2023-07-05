@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, type Relation } from 'typeorm';
-import { Address } from './address.entity.js';
+import { Address } from './address.entity';
 
 @Entity('user')
 export class User {
@@ -19,5 +19,5 @@ export class User {
   password: string;
 
   @OneToMany(() => Address, (address) => address.user, {cascade: true})
-  address: Relation<Address[]> | null;
+  address: Relation<Address[]>;
 }

@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { CustomError } from '../format-error.js';
+import { CustomError } from '../format-error';
 
 export function authorizeToken(token: string) {
   try {

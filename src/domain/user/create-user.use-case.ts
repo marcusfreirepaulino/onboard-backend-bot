@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt';
 
-import { AppDataSource } from '../../data-source.js';
-import { User } from '../../data/db/entity/user.entity.js';
-import { emailValidator, passwordValidator } from '../../data/validators/validators.js';
-import { UserInput } from '../../model/user.model.js';
-import { CustomError } from '../../format-error.js';
-import { authorizeToken } from '../../auth/authorize-token.js';
+import { AppDataSource } from '../../data-source';
+import { User } from '../../data/db/entity/user.entity';
+import { emailValidator, passwordValidator } from '../../data/validators/validators';
+import { UserInput } from '../../model/user.model';
+import { CustomError } from '../../format-error';
+import { authorizeToken } from '../../auth/authorize-token';
 
 export class CreateUserUseCase {
   constructor(private readonly repository = AppDataSource.getRepository(User), private readonly user = new User()) {}

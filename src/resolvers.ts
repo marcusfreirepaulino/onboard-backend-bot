@@ -1,7 +1,7 @@
-import { LoginUseCase, loginUseCase } from './domain/auth/login.use-case.js';
-import { CreateUserUseCase, createUserUseCase } from './domain/user/create-user.use-case.js';
-import { GetUserUseCase, getUserUseCase } from './domain/user/get-user.use-case.js';
-import { getUsersUseCase } from './domain/user/get-users.use-case.js';
+import { LoginUseCase, loginUseCase } from './domain/auth/login.use-case';
+import { CreateUserUseCase, createUserUseCase } from './domain/user/create-user.use-case';
+import { GetUserUseCase, getUserUseCase } from './domain/user/get-user.use-case';
+import { getUsersUseCase } from './domain/user/get-users.use-case';
 
 export class Resolvers {
   constructor(
@@ -25,7 +25,7 @@ export class Resolvers {
 
 export const resolvers = {
   Query: {
-    user: async (_, { id }, context) => getUserUseCase(id, context?.token),
+    user: async (_, { id }, context) => new GetUserUseCase().execute(id, context?.token),
     users: async (_, { data }, context) => getUsersUseCase(context?.token, data.limit, data.offset),
   },
   Mutation: {

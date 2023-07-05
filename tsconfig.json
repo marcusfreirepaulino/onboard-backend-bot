@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     "rootDirs": ["src"],
+    "baseUrl": "./src",
     "outDir": "dist",
     "lib": ["es2020"],
     "target": "esnext",
-    "module": "esnext",
+    "module": "nodenext",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "types": ["node"],
@@ -13,8 +14,9 @@
     "isolatedModules": true,
     "noEmit": false,
     "allowSyntheticDefaultImports": true,
-    "paths": {
-      "@/*": ["./"],
-    }
-  }
+    "sourceMap": true,
+    "resolveJsonModule": true,
+  },
+  "include": ["./src", "./test"],
+  "exclude": ["node_modules"]
 }

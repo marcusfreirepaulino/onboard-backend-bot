@@ -3,9 +3,9 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import { AppDataSource } from '../src/data-source.js';
-import { User } from '../src/data/db/index.js';
-import { CustomError } from '../src/format-error.js';
+import { AppDataSource } from '../src/data-source';
+import { User } from '../src/data/db/index';
+import { CustomError } from '../src/format-error';
 
 describe('Create User', () => {
   const endpoint = `http://${process.env.HOST}:${process.env.SERVER_PORT}/graphql`;

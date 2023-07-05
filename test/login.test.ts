@@ -2,10 +2,10 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import { AppDataSource } from '../src/data-source.js';
-import { User } from '../src/data/db/entity/user.entity.js';
-import { createUserUseCase } from '../src/domain/index.js';
-import { CustomError } from '../src/format-error.js';
+import { AppDataSource } from '../src/data-source';
+import { User } from '../src/data/db/entity/user.entity';
+import { createUserUseCase } from '../src/domain/index';
+import { CustomError } from '../src/format-error';
 
 describe('Login', () => {
   const endpoint = `http://${process.env.HOST}:${process.env.SERVER_PORT}/graphql`;

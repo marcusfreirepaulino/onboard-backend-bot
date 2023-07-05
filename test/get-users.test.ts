@@ -2,7 +2,7 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import { getUsersUseCase } from '../src/domain/user/get-users.use-case.js';
+import { getUsersUseCase } from '../src/domain/user/get-users.use-case';
 
 describe('Get Users', () => {
   const endpoint = `http://${process.env.HOST}:${process.env.SERVER_PORT}/graphql`;
@@ -38,7 +38,7 @@ describe('Get Users', () => {
   `;
 
   it('should return the users signed in the database', async () => {
-    const { seedDatabase } = await import('../src/seed/seed-database.js');
+    const { seedDatabase } = await import('../src/seed/seed-database');
     await seedDatabase();
 
     const { data: response } = await axios({

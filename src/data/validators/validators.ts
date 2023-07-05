@@ -1,4 +1,4 @@
-import { CustomError } from '../../format-error.js';
+import { CustomError } from '../../format-error';
 
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-zA-Z]).+$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;

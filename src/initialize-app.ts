@@ -1,10 +1,10 @@
-import 'dotenv/config.js';
+import 'dotenv/config';
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { AppDataSource } from './data-source.js';
-import { formatError } from './format-error.js';
-import { resolvers } from './resolvers.js';
-import { typeDefs } from './types-def.js';
+import { AppDataSource } from './data-source';
+import { formatError } from './format-error';
+import { resolvers } from './resolvers';
+import { typeDefs } from './types-def';
 
 export async function initializeApp() {
   try {

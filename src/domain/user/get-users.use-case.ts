@@ -1,7 +1,7 @@
-import { authorizeToken } from '../../auth/authorize-token.js';
-import { AppDataSource } from '../../data-source.js';
-import { User } from '../../data/db/index.js';
-import { CustomError } from '../../format-error.js';
+import { authorizeToken } from '../../auth/authorize-token';
+import { AppDataSource } from '../../data-source';
+import { User } from '../../data/db/index';
+import { CustomError } from '../../format-error';
 
 export async function getUsersUseCase(token: string, limit = 10, offset = 0) {
   const userRepository = AppDataSource.getRepository(User);
