@@ -6,6 +6,13 @@ export const typeDefs = `
     birthDate: String!
   }
 
+  type Users {
+    users: [User!]!
+    total: Int!
+    before: Boolean!
+    after: Boolean!
+  }
+
   type Login {
     login: User!
     token: String! 
@@ -18,6 +25,11 @@ export const typeDefs = `
     password: String!
   }
 
+  input UsersInput {
+    limit: Int
+    offset: Int
+  }
+
   input LoginInput {
     email: String!
     password: String!
@@ -25,6 +37,10 @@ export const typeDefs = `
    
   type Query {
     user(id: Int!): User!
+  }
+  
+  type Query {
+    users(data: UsersInput): Users!
   }
   
   type Mutation {
