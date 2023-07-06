@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { Service, Inject } from 'typedi';
 
-import { AppDataSource } from '../../data-source';
-import { User } from '../../data/db/entity/user.entity';
 import { CustomError } from '../../format-error';
 import { LoginInput } from '../../model/user.model';
+import { UserDataSource } from '../../data/db/source/user.data-source';
 
 interface LoginUseCaseResponse {
   login: {
@@ -16,11 +16,13 @@ interface LoginUseCaseResponse {
   token: string;
 }
 
+@Service()
 export class LoginUseCase {
-  private readonly repository = AppDataSource.getRepository(User);
+  @Inject()
+  private readonly dataSource: UserDataSource;
 
   async execute(input: LoginInput): Promise<LoginUseCaseResponse> {
-    const databaseUser = await this.repository.findOneBy({ email: input.email });
+    const databaseUser = await this.dataSource.getOneUser({ email: input.email });
 
     if (!databaseUser) {
       throw new CustomError('Invalid credentials', 401);
