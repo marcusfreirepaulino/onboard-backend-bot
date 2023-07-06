@@ -1,5 +1,7 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
+import { Container } from 'typedi';
+
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import { CreateUserUseCase } from '../src/domain/user/create-user.use-case';
@@ -35,7 +37,7 @@ describe('Get User', () => {
 `;
 
   it('should return the user associated with the id', async () => {
-    const user = await new CreateUserUseCase().execute(variables.data, token);
+    const user = await Container.get(CreateUserUseCase).execute(variables.data, token);
 
     const { data: response } = await axios({
       url: endpoint,

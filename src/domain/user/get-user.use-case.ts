@@ -1,12 +1,11 @@
-import { Service, Inject } from 'typedi';
+import { Service } from 'typedi';
 import { authorizeToken } from '../../auth/authorize-token';
 import { CustomError } from '../../format-error';
 import { UserDataSource } from '../../data/db/source/user.data-source';
 
 @Service()
 export class GetUserUseCase {
-  @Inject()
-  private readonly dataSource: UserDataSource;
+  constructor(private readonly dataSource: UserDataSource) {}
 
   async execute(id: number, token: string) {
     authorizeToken(token);

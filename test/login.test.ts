@@ -1,5 +1,6 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
+import { Container } from 'typedi';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import { AppDataSource } from '../src/data-source';
@@ -39,7 +40,7 @@ describe('Login', () => {
 
   it('should return the correct user information', async () => {
     const token = jwt.sign(variables.data.email, process.env.JWT_SECRET);
-    await new CreateUserUseCase().execute(variables.data, token);
+    await Container.get(CreateUserUseCase).execute(variables.data, token);
     const userRepository = AppDataSource.getRepository(User);
 
     const { data: response } = await axios({

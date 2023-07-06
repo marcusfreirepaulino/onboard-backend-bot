@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { Service, Inject } from 'typedi';
+import { Service } from 'typedi';
 
 import { User } from '../../data/db/entity/user.entity';
 import { emailValidator, passwordValidator } from '../../data/validators/validators';
@@ -10,15 +10,14 @@ import { UserDataSource } from '../../data/db/source/user.data-source';
 
 @Service()
 export class CreateUserUseCase {
-  @Inject()
-  private readonly dataSource: UserDataSource;
+  constructor(private readonly dataSource: UserDataSource) {}
 
   async execute(input: UserInput, token: string) {
     authorizeToken(token);
     emailValidator(input.email);
     passwordValidator(input.password);
 
-    const findEmail = await this.dataSource.getOneUser({email: input.email});
+    const findEmail = await this.dataSource.getOneUser({ email: input.email });
 
     if (!!findEmail) {
       throw new CustomError('This email is already registered.', 400);

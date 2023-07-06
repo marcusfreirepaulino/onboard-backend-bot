@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { Service, Inject } from 'typedi';
+import { Service } from 'typedi';
 
 import { CustomError } from '../../format-error';
 import { LoginInput } from '../../model/user.model';
@@ -18,8 +18,7 @@ interface LoginUseCaseResponse {
 
 @Service()
 export class LoginUseCase {
-  @Inject()
-  private readonly dataSource: UserDataSource;
+  constructor(private readonly dataSource: UserDataSource) {}
 
   async execute(input: LoginInput): Promise<LoginUseCaseResponse> {
     const databaseUser = await this.dataSource.getOneUser({ email: input.email });
