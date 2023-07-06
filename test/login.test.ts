@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import { AppDataSource } from '../src/data-source';
 import { User } from '../src/data/db/entity/user.entity';
-import { createUserUseCase } from '../src/domain/index';
+import { CreateUserUseCase } from '../src/domain/index';
 import { CustomError } from '../src/format-error';
 
 describe('Login', () => {
@@ -39,7 +39,7 @@ describe('Login', () => {
 
   it('should return the correct user information', async () => {
     const token = jwt.sign(variables.data.email, process.env.JWT_SECRET);
-    await createUserUseCase(variables.data, token);
+    await new CreateUserUseCase().execute(variables.data, token);
     const userRepository = AppDataSource.getRepository(User);
 
     const { data: response } = await axios({
