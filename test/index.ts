@@ -1,13 +1,13 @@
 import dotenv from 'dotenv';
 
 dotenv.config({ path: 'test.env' });
+import { initializeApp } from '../src/initialize-app';
+import { cleanDatabase } from '../src/clean-database';
 
 before(async () => {
-  const { initializeApp } = await import('../src/initialize-app');
   await initializeApp();
 });
 afterEach(async () => {
-  const { cleanDatabase } = await import('../src/clean-database');
   await cleanDatabase();
 });
 

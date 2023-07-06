@@ -12,9 +12,9 @@ export class CreateUserUseCase {
   private readonly user = new User();
 
   async execute(input: UserInput, token: string) {
+    authorizeToken(token);
     emailValidator(input.email);
     passwordValidator(input.password);
-    authorizeToken(token);
 
     const findEmail = this.repository.findOneBy({ email: input.email });
 

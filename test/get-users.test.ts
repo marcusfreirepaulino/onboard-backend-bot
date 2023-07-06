@@ -2,6 +2,7 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
+import { seedDatabase } from '../src/seed/seed-database';
 
 describe('Get Users', () => {
   const endpoint = `http://${process.env.HOST}:${process.env.SERVER_PORT}/graphql`;
@@ -37,7 +38,6 @@ describe('Get Users', () => {
   `;
 
   it('should return the users signed in the database', async () => {
-    const { seedDatabase } = await import('../src/seed/seed-database');
     await seedDatabase();
 
     const { data: response } = await axios({
@@ -49,8 +49,8 @@ describe('Get Users', () => {
         variables,
       },
     });
-    expect(response.data.users.before).to.be.true; 
+    expect(response.data.users.before).to.be.true;
     expect(response.data.users.after).to.be.true;
-    expect(response.data.users.users.length).to.be.eq(variables.data.limit); 
+    expect(response.data.users.users.length).to.be.eq(variables.data.limit);
   });
 });
