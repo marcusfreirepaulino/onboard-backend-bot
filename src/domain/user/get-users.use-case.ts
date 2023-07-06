@@ -1,10 +1,11 @@
+import { Service } from 'typedi';
 import { authorizeToken } from '../../auth/authorize-token';
-import { AppDataSource } from '../../data-source';
-import { User } from '../../data/db/index';
 import { CustomError } from '../../format-error';
+import { UserDataSource } from '../../data/db/source/user.data-source';
 
+@Service()
 export class GetUsersUseCase {
-  private readonly repository = AppDataSource.getRepository(User);
+  constructor(private readonly dataSource: UserDataSource) {}
 
   async execute(token: string, limit = 10, offset = 0) {
     authorizeToken(token);
@@ -16,12 +17,7 @@ export class GetUsersUseCase {
       throw new CustomError('The offset should be greater than 0.', 400);
     }
 
-    const [users, usersCount] = await this.repository.findAndCount({
-      skip: offset,
-      take: limit,
-      order: { name: 'ASC' },
-      relations: ['address'],
-    });
+    const [users, usersCount] = await this.dataSource.getListOfUsers(limit, offset);
 
     return {
       users: users,
