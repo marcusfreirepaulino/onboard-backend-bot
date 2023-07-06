@@ -2,7 +2,7 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import { createUserUseCase } from '../src/domain/user/create-user.use-case.js';
+import { createUserUseCase } from '../src/domain/user/create-user.use-case';
 
 describe('Get User', () => {
   const endpoint = `http://${process.env.HOST}:${process.env.SERVER_PORT}/graphql`;

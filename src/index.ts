@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import 'dotenv/config.js';
+import 'dotenv/config';
 
 import { initializeApp } from './initialize-app';
 

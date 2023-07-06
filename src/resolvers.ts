@@ -1,15 +1,15 @@
-import { loginUseCase } from './domain/auth/login.use-case.js';
-import { createUserUseCase } from './domain/user/create-user.use-case.js';
-import { getUserUseCase } from './domain/user/get-user.use-case.js';
-import { getUsersUseCase } from './domain/user/get-users.use-case.js';
+import { LoginUseCase } from './domain/auth/login.use-case';
+import { CreateUserUseCase } from './domain/user/create-user.use-case';
+import { GetUserUseCase } from './domain/user/get-user.use-case';
+import { GetUsersUseCase } from './domain/user/get-users.use-case';
 
 export const resolvers = {
   Query: {
-    user: async (_, { id }, context) => getUserUseCase(id, context?.token),
-    users: async (_, { data }, context) => getUsersUseCase(context?.token, data.limit, data.offset),
+    user: async (_, { id }, context) => new GetUserUseCase().execute(id, context?.token),
+    users: async (_, { data }, context) => new GetUsersUseCase().execute(context?.token, data.limit, data.offset),
   },
   Mutation: {
-    createUser: async (_, { data }, context) => createUserUseCase(data, context?.token),
-    login: async (_, { data }) => loginUseCase(data),
+    createUser: async (_, { data }, context) => new CreateUserUseCase().execute(data, context?.token),
+    login: async (_, { data }) => new LoginUseCase().execute(data),
   },
 };

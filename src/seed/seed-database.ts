@@ -4,7 +4,7 @@ import { UserInput } from '../model/user.model.js';
 import { User } from '../data/db/index.js';
 
 dotenv.config({ path: 'test.env' });
-const { AppDataSource } = await import('../data-source.js');
+const { AppDataSource } = await import('../data-source');
 
 interface SeedDatabaseParams {
   users?: {

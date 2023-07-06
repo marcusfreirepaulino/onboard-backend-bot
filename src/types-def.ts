@@ -4,6 +4,7 @@ export const typeDefs = `
     name: String!
     email: String!
     birthDate: String!
+    address: [Address!]
   }
 
   type Users {
@@ -11,7 +12,20 @@ export const typeDefs = `
     total: Int!
     before: Boolean!
     after: Boolean!
+    address: [Address!]
   }
+
+ type Address {
+   id: Int!
+   postalCode: String!
+   street: String!
+   streetNumber: Int!
+   complement: String
+   neighborhood: String!
+   city: String!
+   state: String! 
+  }
+
 
   type Login {
     login: User!
@@ -51,4 +65,3 @@ export const typeDefs = `
     login(data: LoginInput!): Login!
   }
 `;
-
