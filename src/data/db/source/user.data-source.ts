@@ -23,4 +23,8 @@ export class UserDataSource {
   async createUser(input: UserInput) {
     return this.repository.save(input);
   }
+
+  async userExists(params: GetOneUserParams) {
+    return this.repository.findOneOrFail({ where: { ...params }, relations: ['address'] });
+  }
 }

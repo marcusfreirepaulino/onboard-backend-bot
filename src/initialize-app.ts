@@ -6,12 +6,17 @@ import { formatError } from './format-error';
 import { AuthResolver, UsersResolver } from './resolvers';
 import { buildSchema } from 'type-graphql';
 import { Container } from 'typedi';
+import { customAuthChecker } from './auth-checker';
 
 export async function initializeApp() {
   try {
     await AppDataSource.initialize();
 
-    const schema = await buildSchema({ resolvers: [AuthResolver, UsersResolver], container: Container });
+    const schema = await buildSchema({
+      resolvers: [AuthResolver, UsersResolver],
+      container: Container,
+      authChecker: customAuthChecker,
+    });
 
     const server = new ApolloServer({ schema, formatError });
 

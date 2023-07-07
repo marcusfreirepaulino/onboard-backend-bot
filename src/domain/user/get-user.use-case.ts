@@ -1,5 +1,4 @@
 import { Service } from 'typedi';
-import { authorizeToken } from '../../auth/authorize-token';
 import { CustomError } from '../../format-error';
 import { UserDataSource } from '../../data/db/source/user.data-source';
 
@@ -7,8 +6,7 @@ import { UserDataSource } from '../../data/db/source/user.data-source';
 export class GetUserUseCase {
   constructor(private readonly dataSource: UserDataSource) {}
 
-  async execute(id: number, token: string) {
-    authorizeToken(token);
+  async execute(id: number) {
 
     const user = await this.dataSource.getOneUser({ id });
 

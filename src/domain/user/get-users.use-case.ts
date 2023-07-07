@@ -1,5 +1,4 @@
 import { Service } from 'typedi';
-import { authorizeToken } from '../../auth/authorize-token';
 import { CustomError } from '../../format-error';
 import { UserDataSource } from '../../data/db/source/user.data-source';
 
@@ -7,8 +6,7 @@ import { UserDataSource } from '../../data/db/source/user.data-source';
 export class GetUsersUseCase {
   constructor(private readonly dataSource: UserDataSource) {}
 
-  async execute(token: string, limit = 10, offset = 0) {
-    authorizeToken(token);
+  async execute(limit = 10, offset = 0) {
 
     if (limit < 0) {
       throw new CustomError('The number of users returned should not be lower than 0.', 400);

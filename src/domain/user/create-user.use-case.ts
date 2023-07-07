@@ -5,15 +5,13 @@ import { User } from '../../data/db/entity/user.entity';
 import { emailValidator, passwordValidator } from '../../data/validators/validators';
 import { UserInput } from '../../model/user.model';
 import { CustomError } from '../../format-error';
-import { authorizeToken } from '../../auth/authorize-token';
 import { UserDataSource } from '../../data/db/source/user.data-source';
 
 @Service()
 export class CreateUserUseCase {
   constructor(private readonly dataSource: UserDataSource) {}
 
-  async execute(input: UserInput, token: string) {
-    authorizeToken(token);
+  async execute(input: UserInput) {
     emailValidator(input.email);
     passwordValidator(input.password);
 

@@ -37,7 +37,7 @@ describe('Get User', () => {
 `;
 
   it('should return the user associated with the id', async () => {
-    const user = await Container.get(CreateUserUseCase).execute(variables.data, token);
+    const user = await Container.get(CreateUserUseCase).execute(variables.data);
 
     const { data: response } = await axios({
       url: endpoint,

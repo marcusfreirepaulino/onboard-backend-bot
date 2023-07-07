@@ -39,8 +39,7 @@ describe('Login', () => {
   };
 
   it('should return the correct user information', async () => {
-    const token = jwt.sign(variables.data.email, process.env.JWT_SECRET);
-    await Container.get(CreateUserUseCase).execute(variables.data, token);
+    await Container.get(CreateUserUseCase).execute(variables.data);
     const userRepository = AppDataSource.getRepository(User);
 
     const { data: response } = await axios({
