@@ -43,6 +43,7 @@
     "axios": "1.4.0",
     "bcrypt": "5.1.0",
     "chai": "4.3.7",
+    "class-validator": "0.14.0",
     "cross-env": "7.0.3",
     "dotenv": "16.3.1",
     "graphql": "16.6.0",
@@ -50,6 +51,7 @@
     "pg": "8.11.0",
     "reflect-metadata": "0.1.13",
     "tsconfig-paths": "4.2.0",
+    "type-graphql": "2.0.0-beta.2",
     "typedi": "0.10.0",
     "typeorm": "0.3.16"
   }

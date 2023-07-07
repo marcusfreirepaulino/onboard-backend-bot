@@ -1,67 +1,109 @@
-export const typeDefs = `
-  type User {
-    id: Int!
-    name: String!
-    email: String!
-    birthDate: String!
-    address: [Address!]
-  }
+import { Field, ID, ObjectType, InputType, Int} from 'type-graphql';
 
-  type Users {
-    users: [User!]!
-    total: Int!
-    before: Boolean!
-    after: Boolean!
-    address: [Address!]
-  }
+@ObjectType()
+export class User {
+  @Field(() => ID)
+  id: number;
 
- type Address {
-   id: Int!
-   postalCode: String!
-   street: String!
-   streetNumber: Int!
-   complement: String
-   neighborhood: String!
-   city: String!
-   state: String! 
-  }
+  @Field()
+  name: string;
 
+  @Field()
+  email: string;
 
-  type Login {
-    login: User!
-    token: String! 
-  }
+  @Field()
+  birthDate: string;
 
-  input UserInput {
-    name: String!
-    email: String!
-    birthDate: String!
-    password: String!
-  }
+  @Field()
+  password: string;
 
-  input UsersInput {
-    limit: Int
-    offset: Int
-  }
+  @Field(() => [Address], { nullable: true })
+  address?: Address[];
+}
 
-  input LoginInput {
-    email: String!
-    password: String!
-  }
-   
-  type Query {
-    user(id: Int!): User!
-  }
-  
-  type Query {
-    users(data: UsersInput): Users!
-  }
-  
-  type Mutation {
-    createUser(data: UserInput!): User!
-  }
-  
-  type Mutation {
-    login(data: LoginInput!): Login!
-  }
-`;
+@ObjectType()
+export class Users {
+  @Field(() => [User])
+  users: User[];
+
+  @Field(() => Int)
+  total: number;
+
+  @Field()
+  before: boolean;
+
+  @Field()
+  after: boolean;
+
+  @Field(() => [Address], { nullable: true })
+  address?: Address[];
+}
+
+@ObjectType()
+export class Address {
+  @Field(() => ID)
+  id: number;
+
+  @Field()
+  zipCode: string;
+
+  @Field()
+  street: string;
+
+  @Field()
+  streetNumber: number;
+
+  @Field({ nullable: true })
+  complement?: string;
+
+  @Field()
+  neighborhood: string;
+
+  @Field()
+  city: string;
+
+  @Field()
+  state: string;
+}
+
+@ObjectType()
+export class Login {
+  @Field(() => User)
+  login: User;
+
+  @Field()
+  token: string;
+}
+
+@InputType()
+export class UserInput {
+  @Field()
+  name: string
+
+  @Field()
+  email: string;
+
+  @Field()
+  birthDate: string;
+
+  @Field()
+  password: string;
+}
+
+@InputType()
+export class UsersInput {
+  @Field( () => Int,{nullable: true})
+  limit?: number;
+
+  @Field(() => Int, {nullable: true})
+  offset?: number;
+}
+
+@InputType()
+export class LoginInput {
+  @Field()
+  email: string;
+
+  @Field()
+  password: string;
+}
